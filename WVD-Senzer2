@@ -1,7 +1,7 @@
 
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "1.0.1.1", 
+  "contentVersion": "1.0.1.2", 
   
   "parameters": {
   	
@@ -218,10 +218,10 @@
             }
           },
           "imageReference": {
-            "publisher": "[variables('VM_IMAGES')[parameters('OperatingSystem')].publisher]",
-            "offer": "[variables('VM_Images')[parameters('OperatingSystem')].offer]",
-            "sku": "[variables('VM_Images')[parameters('OperatingSystem')].sku]",
-            "version": "[variables('VM_Images')[parameters('OperatingSystem')].version]"
+            "publisher": "Senzer",
+            "offer": "Senzer",
+            "sku": "Senzer",
+            "version": "Latest"
           }
         },
         "networkProfile": {
