@@ -63,6 +63,24 @@
         "Large"
       ]
     },
+       "galleryName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the Shared Image Gallery."
+      }
+    },
+    "galleryImageDefinitionName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the Image Definition."
+      }
+    },
+    "galleryImageVersionName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the Image Version - should follow <MajorVersion>.<MinorVersion>.<Patch>."
+      }
+    },
       "VnetRgName": {
       "type": "string",
      "defaultValue": "SRV-RG"
@@ -217,11 +235,8 @@
               "storageAccountType": "StandardSSD_LRS"
             }
           },
-          "imageReference": {
-            "publisher": "Senzer",
-            "offer": "Senzer",
-            "sku": "Senzer",
-            "version": "Latest"
+         "imageReference": {
+            "id": "[resourceId('Microsoft.Compute/galleries/images/versions', parameters('galleryName'), parameters('galleryImageDefinitionName'), parameters('galleryImageVersionName'))]"
           }
         },
         "networkProfile": {
