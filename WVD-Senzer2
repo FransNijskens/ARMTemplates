@@ -7,7 +7,7 @@
   	
     "Prefix": {
       "type": "string",
-      "defaultValue": "Test01-5"
+      "defaultValue": "Test01-5" 
     },
     "AdminUserName": {
       "type": "string"
