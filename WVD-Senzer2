@@ -62,7 +62,7 @@
        "defaultValue": "WVD_Image_test2",
         "allowedValues": [
         "WVD_Image_test2"
-      ]
+      ],
       "metadata": {
         "description": "Name of the Shared Image Gallery."
       }
