@@ -1,7 +1,7 @@
 
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "1.0.1.7", 
+  "contentVersion": "1.0.1.8", 
   
   "parameters": {
   	
@@ -293,33 +293,6 @@
         "WVD-Copy"
       ]
     },
-    {
-      "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(variables('VMName'),'/CustomScriptExtension')]",
-      "apiVersion": "2015-06-15",
-      "location": "[parameters('vmLocation')]",
-      "copy": {
-        "name": "Script-Copy",
-        "count": "[parameters('Instance')]"
-      },
-      "properties": {
-        "publisher": "Microsoft.Compute",
-        "type": "CustomScriptExtension",
-        "typeHandlerVersion": "1.9",
-        "autoUpgradeMinorVersion": true,
-        "settings": {
-          "fileUris": [
-            "[variables('fileUris')]"
-          ]
-        },
-        "protectedSettings": {
-          "commandToExecute": "[concat ('powershell -ExecutionPolicy Unrestricted -File ', variables('firstFileName'), ' ', variables('arguments'))]"
-        }
-      },
-      "dependsOn": [
-        "JoinDomain-Copy"
-      ]
-    },
         {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(variables('VMName'),'/MicrosoftMonitoringAgent')]",          
@@ -330,7 +303,7 @@
           "count": "[parameters('Instance')]"
 	  },
           "dependsOn": [
-            "Script-Copy"
+            "JoinDomain-Copy"
           ],
           "properties": {
             "publisher": "Microsoft.EnterpriseCloud.Monitoring",
@@ -362,7 +335,34 @@
                 "typeHandlerVersion": "9.3",
                 "autoUpgradeMinorVersion": true
             }
+        },
+	  {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(variables('VMName'),'/CustomScriptExtension')]",
+      "apiVersion": "2015-06-15",
+      "location": "[parameters('vmLocation')]",
+      "copy": {
+        "name": "Script-Copy",
+        "count": "[parameters('Instance')]"
+      },
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "CustomScriptExtension",
+        "typeHandlerVersion": "1.9",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "fileUris": [
+            "[variables('fileUris')]"
+          ]
+        },
+        "protectedSettings": {
+          "commandToExecute": "[concat ('powershell -ExecutionPolicy Unrestricted -File ', variables('firstFileName'), ' ', variables('arguments'))]"
         }
+      },
+      "dependsOn": [
+        "DependencyAgent"
+      ]
+    }
      
   ],
   "outputs": {
